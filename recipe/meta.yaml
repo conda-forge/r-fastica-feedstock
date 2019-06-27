@@ -1,5 +1,4 @@
-{% set version = '1.2-0' %}
-
+{% set version = '1.2-1' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -8,44 +7,61 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: fastICA_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/fastICA_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/fastICA/fastICA_{{ version }}.tar.gz
-  sha256: 19b82a4b680977e5e101d7cd2dbdb227cabd0a8a929368c213aa95a91d3a737a
+    - {{ cran_mirror }}/src/contrib/fastICA_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/fastICA/fastICA_{{ version }}.tar.gz
+  sha256: 6f2997dd766a544be3a3de2780df48ca67242ac7790a4a2882c417bfaa171f81
 
 build:
   merge_build_host: True  # [win]
-  number: 1002
-  skip: true  # [win32]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}              # [not win]
+    - {{ compiler('m2w64_c') }}        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
 
 test:
   commands:
-    - $R -e "library('fastICA')"  # [not win]
+    - $R -e "library('fastICA')"           # [not win]
     - "\"%R%\" -e \"library('fastICA')\""  # [win]
 
 about:
   home: https://CRAN.R-project.org/package=fastICA
-  license: GPL (>= 2)
+  license: GPL-2 | GPL-3
   summary: Implementation of FastICA algorithm to perform Independent Component Analysis (ICA)
     and Projection Pursuit.
   license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
 
 extra:
   recipe-maintainers:
-    - dpryan79
-    - johanneskoester
-    - bgruening
+    - conda-forge/r
+
+# Package: fastICA
+# Version: 1.2-1
+# Date: 2017-06-12
+# Title: FastICA Algorithms to Perform ICA and Projection Pursuit
+# Author: J L Marchini <marchini@stats.ox.ac.uk>, C Heaton <chrisheaton99@yahoo.com> and B D Ripley <ripley@stats.ox.ac.uk>
+# Maintainer: Brian Ripley <ripley@stats.ox.ac.uk>
+# Depends: R (>= 3.0.0)
+# Suggests: MASS
+# Description: Implementation of FastICA algorithm to perform Independent Component Analysis (ICA) and Projection Pursuit.
+# License: GPL-2 | GPL-3
+# Packaged: 2017-06-12 07:49:50 UTC; ripley
+# NeedsCompilation: yes
+# Repository: CRAN
+# Date/Publication: 2017-06-12 10:10:37 UTC
