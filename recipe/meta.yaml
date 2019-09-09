@@ -1,4 +1,4 @@
-{% set version = '1.2-1' %}
+{% set version = '1.2-2' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/fastICA_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/fastICA/fastICA_{{ version }}.tar.gz
-  sha256: 6f2997dd766a544be3a3de2780df48ca67242ac7790a4a2882c417bfaa171f81
+  sha256: 32223593374102bf54c8fdca7b57231e4f4d0dd0be02d9f3500ad41b1996f1fe
 
 build:
   merge_build_host: True  # [win]
-  number: 1
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -45,23 +45,25 @@ about:
   summary: Implementation of FastICA algorithm to perform Independent Component Analysis (ICA)
     and Projection Pursuit.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+  license_file:
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:
     - conda-forge/r
 
 # Package: fastICA
-# Version: 1.2-1
-# Date: 2017-06-12
+# Version: 1.2-2
+# Date: 2019-07-08
 # Title: FastICA Algorithms to Perform ICA and Projection Pursuit
-# Author: J L Marchini <marchini@stats.ox.ac.uk>, C Heaton <chrisheaton99@yahoo.com> and B D Ripley <ripley@stats.ox.ac.uk>
+# Author: J L Marchini, C Heaton and B D Ripley <ripley@stats.ox.ac.uk>
 # Maintainer: Brian Ripley <ripley@stats.ox.ac.uk>
 # Depends: R (>= 3.0.0)
 # Suggests: MASS
 # Description: Implementation of FastICA algorithm to perform Independent Component Analysis (ICA) and Projection Pursuit.
 # License: GPL-2 | GPL-3
-# Packaged: 2017-06-12 07:49:50 UTC; ripley
 # NeedsCompilation: yes
+# Packaged: 2019-07-08 14:58:13 UTC; ripley
 # Repository: CRAN
-# Date/Publication: 2017-06-12 10:10:37 UTC
+# Date/Publication: 2019-07-08 14:59:51 UTC
