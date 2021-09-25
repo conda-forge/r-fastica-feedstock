@@ -1,4 +1,4 @@
-{% set version = '1.2-2' %}
+{% set version = "1.2-3" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/fastICA_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/fastICA/fastICA_{{ version }}.tar.gz
-  sha256: 32223593374102bf54c8fdca7b57231e4f4d0dd0be02d9f3500ad41b1996f1fe
+  sha256: e9ef82644cb64bb49ae3b7b6e0885f4fb2dc08ae030f8c76fe8dd8507b658950
 
 build:
-  merge_build_host: True  # [win]
-  number: 2
+  merge_build_host: true  # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
@@ -44,12 +44,11 @@ test:
 about:
   home: https://CRAN.R-project.org/package=fastICA
   license: GPL-2.0-or-later
-  summary: Implementation of FastICA algorithm to perform Independent Component Analysis (ICA)
-    and Projection Pursuit.
+  summary: Implementation of FastICA algorithm to perform Independent Component Analysis (ICA) and Projection Pursuit.
   license_family: GPL3
   license_file:
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
-    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2
+    - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
